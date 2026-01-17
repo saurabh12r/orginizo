@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "448101015952",
+    "project_id": "originzo",
+    "storage_bucket": "originzo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448101015952:android:fe364438731843dd621315",
+        "android_client_info": {
+          "package_name": "com.example.orginizo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5EEaYrYUMt8URJ35OC_IRo2DE2uwc_3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
