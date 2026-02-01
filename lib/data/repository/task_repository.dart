@@ -6,8 +6,18 @@ import '../models/task_model.dart';
 class TaskRepository {
   final HiveService _hive = HiveService();
 
-  List<TaskModel> getTasksForDay(int day) {
-    return _hive.getAll().where((t) => t.day == day).toList();
+  List<TaskModel> getAll() {
+    return _hive.getAll();
+  }
+
+  List<TaskModel> getTasksForDay(int dayEpoch) {
+    final normalized = _normalizeDay(dayEpoch);
+    return _hive.getAll().where((t) => _normalizeDay(t.day) == normalized).toList();
+  }
+
+  static int _normalizeDay(int epochMs) {
+    final d = DateTime.fromMillisecondsSinceEpoch(epochMs);
+    return DateTime(d.year, d.month, d.day).millisecondsSinceEpoch;
   }
 
   void addTask(TaskModel task) {

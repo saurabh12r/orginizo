@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../controller/schedule_controller.dart';
 import '../widgets/calendar_stripe.dart';
-import '../widgets/timeline_day_view.dart';
 import '../widgets/header_bar.dart';
 import '../widgets/tittle_bar.dart';
-import '../controller/schedule_controller.dart';
+import '../widgets/timeline_day_view.dart';
 
-class ScheduleView extends StatelessWidget {
-  ScheduleView({super.key});
+class ScheduleView extends GetView<ScheduleController> {
+  const ScheduleView({super.key});
 
-  final ScheduleController controller = Get.put(ScheduleController());
+  @override
+  ScheduleController get controller =>
+      Get.isRegistered<ScheduleController>()
+          ? Get.find<ScheduleController>()
+          : Get.put(ScheduleController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +28,9 @@ class ScheduleView extends StatelessWidget {
           /// Calendar
           Obx(() => CalendarStrip(
             key: ValueKey(controller.dates.first.millisecondsSinceEpoch),
-            controller: controller.tabController,
+            tabController: controller.tabController,
             dates: controller.dates,
+            scheduleController: controller,
           )),
 
           /// Timeline

@@ -9,41 +9,57 @@ class TitleBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text("Task schedule", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          Container(
-            height: 63,
-            width: 150,
-            padding: const EdgeInsets.only(right: 10),
-            decoration: BoxDecoration(
-              color: OrColors.bg,
-              borderRadius: BorderRadius.circular(45),
-              border: Border.all(color: Colors.grey.shade300),
+          /// Title
+          Expanded(
+            child: Text(
+              "Task schedule",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5 , horizontal: 3),
-                  child: CircleAvatar(
+          ),
+
+          const SizedBox(width: 10),
+
+          /// Calendar Button
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: 140,
+              minHeight: 52,
+            ),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                color: OrColors.bg,
+                borderRadius: BorderRadius.circular(45),
+                border: Border.all(color: Colors.grey.shade300),
+              ),
+              child: Row(
+                children: const [
+                  CircleAvatar(
+                    radius: 22,
                     backgroundColor: Colors.white70,
-                    radius: 30,
                     child: Icon(Icons.calendar_today, size: 14),
                   ),
-                ),
+                  SizedBox(width: 6),
 
-                Padding(
-                  padding: EdgeInsets.all(6),
-                  child: Text(
-                    "Calendar",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  /// 🔥 THIS FIXES OVERFLOW
+                  Expanded(
+                    child: Text(
+                      "Calendar",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-              ],
-            )
-
+                ],
+              ),
+            ),
           ),
         ],
       ),

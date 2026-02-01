@@ -7,10 +7,14 @@ import '../controller/login_controller.dart';
 import '../widget/input_field.dart';
 import '../widget/social_button.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends GetView<LoginController> {
+  const LoginScreen({super.key});
 
-  final LoginController controller = Get.put(LoginController());
+  @override
+  LoginController get controller =>
+      Get.isRegistered<LoginController>()
+          ? Get.find<LoginController>()
+          : Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {

@@ -40,7 +40,7 @@ class LoginController extends GetxController {
       Get.offAllNamed(Routes.schedule);
 
     } on FirebaseAuthException catch (e) {
-      final msg = AuthErrorMessages.getMessage(e.code);
+      final msg = getFirebaseAuthMessage(e.code);
 
       Get.snackbar(
         'Authentication Error',

@@ -1,37 +1,38 @@
-class AuthErrorMessages {
-  static String getMessage(String code) {
-    String msg;
-
-    switch (code) {
-      case 'invalid-email':
-        msg = 'Invalid email address';
-        break;
-      case 'user-not-found':
-        msg = 'No account found for this email';
-        break;
-      case 'wrong-password':
-      case 'invalid-login-credentials':
-        msg = 'Incorrect email or password';
-        break;
-      case 'email-already-in-use':
-        msg = 'Email already in use';
-        break;
-      case 'weak-password':
-        msg = 'Password is too weak';
-        break;
-      case 'user-disabled':
-        msg = 'This account has been disabled';
-        break;
-      case 'too-many-requests':
-        msg = 'Too many attempts. Try again later';
-        break;
-      case 'network-request-failed':
-        msg = 'Check your internet connection';
-        break;
-      default:
-        msg = 'Authentication failed';
-    }
-
-    return msg;
+/// Centralized Firebase Auth error mapping. Used by login, signup, forgot password.
+String getFirebaseAuthMessage(String code) {
+  switch (code) {
+    case 'invalid-email':
+      return 'Invalid email address';
+    case 'user-not-found':
+      return 'No account found for this email';
+    case 'wrong-password':
+    case 'invalid-login-credentials':
+    case 'invalid-credential':
+      return 'Incorrect email or password';
+    case 'email-already-in-use':
+      return 'Email already in use';
+    case 'weak-password':
+      return 'Password is too weak';
+    case 'user-disabled':
+      return 'This account has been disabled';
+    case 'too-many-requests':
+      return 'Too many attempts. Try again later';
+    case 'network-request-failed':
+      return 'Check your internet connection';
+    case 'operation-not-allowed':
+      return 'This sign-in method is not enabled';
+    case 'requires-recent-login':
+      return 'Please sign in again and retry';
+    case 'invalid-verification-code':
+      return 'Invalid verification code';
+    case 'invalid-verification-id':
+      return 'Verification session expired';
+    default:
+      return 'Authentication failed';
   }
+}
+
+@Deprecated('Use getFirebaseAuthMessage(code) instead')
+class AuthErrorMessages {
+  static String getMessage(String code) => getFirebaseAuthMessage(code);
 }

@@ -13,7 +13,7 @@ class AddTaskPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Add Task"),
+        title: Text(controller.isEditMode ? "Edit Task" : "Add Task"),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -83,9 +83,9 @@ class AddTaskPage extends StatelessWidget {
                   ),
                 ),
                 onPressed: controller.saveTask,
-                child: const Text(
-                  "Save Task",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                child: Text(
+                  controller.isEditMode ? "Update Task" : "Save Task",
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

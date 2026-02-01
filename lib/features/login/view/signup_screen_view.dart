@@ -6,10 +6,14 @@ import '../controller/signup_screen_controller.dart';
 import '../widget/input_field.dart';
 import '../widget/social_button.dart';
 
-class SignUpScreen extends StatelessWidget {
-  SignUpScreen({super.key});
+class SignUpScreen extends GetView<SignUpController> {
+  const SignUpScreen({super.key});
 
-  final SignUpController controller = Get.put(SignUpController());
+  @override
+  SignUpController get controller =>
+      Get.isRegistered<SignUpController>()
+          ? Get.find<SignUpController>()
+          : Get.put(SignUpController());
 
   @override
   Widget build(BuildContext context) {
