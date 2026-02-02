@@ -14,6 +14,15 @@ class HiveService {
     _box.delete(id);
   }
 
+  /// Replaces all tasks in the box (used when syncing from Firestore).
+  /// Does not change Hive schema; same box, same TaskModel type.
+  void putAll(List<TaskModel> tasks) {
+    _box.clear();
+    for (final task in tasks) {
+      _box.put(task.id, task);
+    }
+  }
+
   List<TaskModel> getAll() {
     return _box.values.toList();
   }

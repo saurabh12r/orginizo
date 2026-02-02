@@ -37,7 +37,7 @@ class LoginController extends GetxController {
       await PrefService().setLoggedIn(true);
 
       // Navigate to home
-      Get.offAllNamed(Routes.schedule);
+      Get.offAllNamed(Routes.main);
 
     } on FirebaseAuthException catch (e) {
       final msg = getFirebaseAuthMessage(e.code);

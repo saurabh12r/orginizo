@@ -18,12 +18,11 @@ class AddTaskPage extends StatelessWidget {
         foregroundColor: Colors.black,
         elevation: 0,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             /// -------- Title ----------
             const Text("Task Title", style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
@@ -69,7 +68,28 @@ class AddTaskPage extends StatelessWidget {
               ],
             ),
 
-            const Spacer(),
+            const SizedBox(height: 20),
+
+            /// -------- Remind me ----------
+            const Text(
+              "Remind me",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 10,
+              runSpacing: 8,
+              children: [
+                for (final minutes in reminderOptionMinutes)
+                  Obx(() => _ReminderChip(
+                    label: minutes == 60 ? 'Before 1 hr' : 'Before $minutes min',
+                    isSelected: controller.isReminderSelected(minutes),
+                    onTap: () => controller.toggleReminder(minutes),
+                  )),
+              ],
+            ),
+
+            const SizedBox(height: 24),
 
             /// -------- Save ----------
             SizedBox(
@@ -157,5 +177,47 @@ class AddTaskPage extends StatelessWidget {
       "Dec"
     ];
     return months[m];
+  }
+}
+
+class _ReminderChip extends StatelessWidget {
+  const _ReminderChip({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(24),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          decoration: BoxDecoration(
+            color: isSelected ? OrColors.primaryGreen : OrColors.bg,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: isSelected ? OrColors.primaryGreenDark : OrColors.textGrey.withOpacity(0.4),
+              width: isSelected ? 2 : 1,
+            ),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: isSelected ? Colors.white : OrColors.textDark,
+              fontSize: 14,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

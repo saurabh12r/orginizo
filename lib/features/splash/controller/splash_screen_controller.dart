@@ -19,7 +19,7 @@ class SplashController extends GetxController {
     final user = await _auth.authStateChanges().first;
 
     if (user != null) {
-      Get.offAllNamed(Routes.schedule);
+      Get.offAllNamed(Routes.main);
     } else {
       Get.offAllNamed(Routes.login);
     }

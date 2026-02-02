@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
 
 import '../features/add_task/view/add_task_view.dart';
+import '../features/home/controller/home_controller.dart';
 import '../features/login/controller/login_controller.dart';
 import '../features/login/controller/signup_screen_controller.dart';
 import '../features/login/view/login_screen_view.dart';
 import '../features/login/view/signup_screen_view.dart';
+import '../features/main_shell/controller/main_shell_controller.dart';
+import '../features/main_shell/view/main_shell_view.dart';
 import '../features/schedule/controller/schedule_controller.dart';
 import '../features/schedule/view/schedule_view.dart';
 import '../features/splash/controller/splash_screen_controller.dart';
@@ -28,6 +31,15 @@ class Pages {
       name: Routes.signup,
       page: () => const SignUpScreen(),
       binding: BindingsBuilder(() => Get.put(SignUpController())),
+    ),
+    GetPage(
+      name: Routes.main,
+      page: () => const MainShellView(),
+      binding: BindingsBuilder(() {
+        Get.put(MainShellController());
+        Get.put(HomeController());
+        Get.put(ScheduleController());
+      }),
     ),
     GetPage(
       name: Routes.schedule,

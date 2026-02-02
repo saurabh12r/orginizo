@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constants/colors.dart';
+import '../../../core/services/notification_services.dart';
 import '../../../data/models/task_model.dart';
 import '../../../data/repository/task_repository.dart';
 import '../../../routes/app_routes.dart';
@@ -186,6 +187,7 @@ class DayTasksBottomSheet extends StatelessWidget {
   }
 
   void _deleteTask(TaskModel task) {
+    NotificationService().cancelAllForTask(task.id, task.reminderOffsets);
     TaskRepository().deleteTask(task.id);
     final controller = Get.find<ScheduleController>();
     final remaining = controller.getTasksForDay(dayEpoch);

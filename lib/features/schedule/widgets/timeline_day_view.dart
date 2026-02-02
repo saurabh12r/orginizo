@@ -108,7 +108,17 @@ class TimelineDayView extends StatelessWidget {
         top: top,
         left: 65,
         right: 20,
-        child: _singleTaskCard(group.single),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {
+              final controller = Get.find<ScheduleController>();
+              controller.openDayBottomSheet(DateTime.fromMillisecondsSinceEpoch(day));
+            },
+            borderRadius: BorderRadius.circular(37),
+            child: _singleTaskCard(group.single),
+          ),
+        ),
       );
     }
 

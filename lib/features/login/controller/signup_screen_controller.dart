@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/error/firebase_error.dart';
+import '../../../core/services/local_storage_services/pref_service.dart';
+import '../../../core/services/username_service.dart';
+import '../../../data/repository/user_repository.dart';
 import '../../../routes/app_routes.dart';
 
 class SignUpController extends GetxController {
@@ -36,10 +39,23 @@ class SignUpController extends GetxController {
       // OPTIONAL: update display name
       await credential.user!.updateDisplayName(nameController.text.trim());
 
+      // Username for Firestore task sync (immutable after signup)
+      await UsernameService().setUsername(nameController.text.trim());
+      await PrefService().setLoggedIn(true);
+
+      // Save display name to Firestore for Home greeting (users/{uid}/name)
+      final name = nameController.text.trim();
+      if (name.isNotEmpty) {
+        try {
+          await UserRepository().saveCurrentUserName(name);
+        } catch (_) {
+          // Do not block signup; greeting will fallback to default
+        }
+      }
+
       debugPrint("User created: ${credential.user!.uid}");
 
-      // TODO: Navigate to home / schedule
-      Get.offAllNamed(Routes.schedule);
+      Get.offAllNamed(Routes.main);
 
     } on FirebaseAuthException catch (e) {
       final msg = getFirebaseAuthMessage(e.code);
